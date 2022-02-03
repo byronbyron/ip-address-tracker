@@ -21,5 +21,6 @@
         background: url('pattern-bg.png') no-repeat center bottom royalblue;
         background-size: cover;
         padding: 1.625rem 1.5rem;
+        height: 300px;
     }
 </style>
