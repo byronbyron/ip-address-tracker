@@ -54,4 +54,8 @@
         display: block;
         margin-bottom: 1.5rem;
     }
+
+    li:last-child strong {
+        margin-bottom: 0;
+    }
 </style>
