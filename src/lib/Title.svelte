@@ -14,5 +14,12 @@
     a {
         display: block;
         color: white;
-    }    
+    }
+
+    @media (min-width: 992px) {
+        h1 {
+            font-size: 2rem;
+            letter-spacing: -0.01em;
+        }
+    }
 </style>

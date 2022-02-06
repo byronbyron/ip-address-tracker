@@ -51,4 +51,11 @@
     button:focus {
         opacity: 0.8;
     }
+
+    @media (min-width: 992px) {
+        form {
+            max-width: 555px;
+            margin: 0 auto 3rem;
+        }
+    }
 </style>

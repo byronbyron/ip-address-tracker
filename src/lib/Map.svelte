@@ -6,7 +6,9 @@
     if(browser) {
       const leaflet = await import('leaflet');
 
-      const map = leaflet.map('map').setView([51.505, -0.09], 13);
+      const map = leaflet.map('map', {
+        zoomControl: false
+      }).setView([51.505, -0.09], 13);
 
       leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -30,5 +32,11 @@
 
   .map {
     height: calc(100vh - 300px);
+  }
+
+  @media (min-width: 992px) {
+    .map {
+      height: calc(100vh - 280px);
+    }
   }
 </style>

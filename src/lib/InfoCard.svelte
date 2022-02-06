@@ -58,4 +58,47 @@
     li:last-child strong {
         margin-bottom: 0;
     }
+
+    @media (min-width: 992px) {
+        div {
+            max-width: 1110px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0;
+        }
+
+        ul {
+            display: flex;
+        }
+
+        li {
+            padding: 2.25rem 3rem 2.25rem 2rem;
+            flex: 1;
+            text-align: left;
+            position: relative;
+        }
+
+        li::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 4.75rem;
+            background-color: hsl(0 0% 0% / 0.15);
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        span {
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.875rem;
+        }
+
+        strong {
+            font-size: 1.625rem;
+            margin-bottom: 0;
+        }
+    }
 </style>

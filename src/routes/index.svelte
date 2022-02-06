@@ -28,4 +28,11 @@
         position: relative;
         z-index: 10000;
     }
+
+    @media (min-width: 992px) {
+        header {
+            height: 280px;
+            padding: 1.875rem 1.5rem;
+        }
+    }
 </style>
