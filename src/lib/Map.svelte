@@ -42,10 +42,10 @@
           attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         })
       ]
-    }).setView([40.753685, -73.999161], 12);
+    }).setView([51.5, -0.09], 13);
 
-    const updateMarker = (marker = [40.753685, -73.999161]) => {
-      map.setView(marker, 12);
+    const updateMarker = (marker = [51.5, -0.09]) => {
+      map.setView(marker, 13);
       leaflet.marker(marker, {
         icon: icon,
       }).addTo(map);
