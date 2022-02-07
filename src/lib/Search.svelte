@@ -7,9 +7,9 @@
         Search for any IP address or domain
     </label>
 
-    <input type="text" id="search" name="search" placeholder="Search for any IP address or domain">
+    <input type="text" id="searchInput" name="search" placeholder="Search for any IP address or domain">
 
-    <button>
+    <button id="searchBtn">
         <img src="/icon-arrow.svg" alt="">
         <span class="sr-only">Search</span>
     </button>

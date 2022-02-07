@@ -2,23 +2,23 @@
     <ul>
         <li>
             <span>IP Address</span>
-            <strong>192.212.174.101</strong>
+            <strong id="ip">192.212.174.101</strong>
         </li>
 
         <li>
             <span>Location</span>
-            <strong>Brooklyn, NY 10001</strong>
+            <strong id="city">Brooklyn, NY 10001</strong>
         </li>
 
         <!-- add offset value dynamically using the API -->
         <li>
             <span>Timezone</span>
-            <strong>UTC -05:00</strong>
+            <strong>UTC <span id="timeZone">-05:00</span></strong>
         </li>
         
         <li>
             <span>ISP</span>
-            <strong>SpaceX Starlink</strong>
+            <strong id="isp">SpaceX Starlink</strong>
         </li>
     </ul>
 </div>
@@ -37,7 +37,7 @@
         list-style: none;
     }
 
-    span {
+    li > span {
         font-size: 11px;
         font-weight: 700;
         line-height: 1.2;
@@ -73,7 +73,8 @@
 
         li {
             padding: 2.25rem 3rem 2.25rem 2rem;
-            flex: 1;
+            flex: 1 0 25%;
+            max-width: 25%;
             text-align: left;
             position: relative;
         }
@@ -90,7 +91,7 @@
             transform: translateY(-50%);
         }
 
-        span {
+        li > span {
             font-size: 13px;
             letter-spacing: 0.1em;
             margin-bottom: 0.875rem;

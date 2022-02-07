@@ -3,19 +3,81 @@
   import { browser } from '$app/env';
 
   onMount(async () => {
-    if(browser) {
-      const leaflet = await import('leaflet');
+    if (! browser) return;
 
-      const map = leaflet.map('map', {
-        zoomControl: false
-      }).setView([51.505, -0.09], 13);
+    const leaflet = await import('leaflet');
 
-      leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const bypassCorsUrl = 'https://cors-anywhere.herokuapp.com/';
+    const apiUrl = 'https://geo.ipify.org/api/v2/country,city';
 
-      leaflet.marker([51.5, -0.09]).addTo(map);
+    // elements to update
+    let ip = document.getElementById('ip');
+    let city = document.getElementById('city');
+    let timeZone = document.getElementById('timeZone');
+    let isp = document.getElementById('isp');
+
+    // form elements 
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    const headersOption = {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
     }
+
+    const map = leaflet.map('map', {
+      center: [0,0],
+      zoom: 0,
+      zoomControl: false,
+      layers: [
+        leaflet.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        })
+      ]
+    }).setView([51.5, -0.09], 13);
+
+    const updateMarker = (marker = [51.5, -0.09]) => {
+      map.setView(marker, 13);
+      leaflet.marker(marker).addTo(map);
+    }
+
+    const getIpDetails = (defaultIp) => {
+      if (defaultIp == undefined) {
+        var ipUrl = `${bypassCorsUrl}${apiUrl}?apiKey=${apiKey}`;
+      } else {
+        var ipUrl = `${bypassCorsUrl}${apiUrl}?apiKey=${apiKey}&ipAddress=${defaultIp}`;
+      }
+
+      fetch(ipUrl, headersOption)
+        .then(results => results.json())
+        .then(data => {
+          ip.innerHTML = data.ip;
+          city.innerHTML = `${data.location.city} ${data.location.country} ${data.location.postalCode}`;
+          timeZone.innerHTML = data.location.timezone;
+          isp.innerHTML = data.isp;
+
+          updateMarker([data.location.lat, data.location.lng]);
+        })
+        .catch(error => {
+          alert("Unable to get IP details");
+          console.log(error);
+        })
+    }
+
+    // document.addEventListener('load', updateMarker());
+
+    searchBtn.addEventListener('click', e => {
+      e.preventDefault();
+
+      if (searchInput.value !== '' && searchInput.value !== null) {
+        getIpDetails(searchInput.value);
+        return;
+      }
+
+      alert("Please enter a valid IP address");
+    })
   });
 </script>
 
