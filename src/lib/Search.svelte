@@ -2,8 +2,8 @@
     
 </script>
 
-<form action="">
-    <label for="search" class="sr-only">
+<form>
+    <label for="searchInput" class="sr-only">
         Search for any IP address or domain
     </label>
 
