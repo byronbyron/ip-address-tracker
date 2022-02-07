@@ -27,6 +27,12 @@
       }
     }
 
+    var icon = leaflet.icon({
+        iconUrl: '/icon-location.svg',
+        iconSize:     [46, 56], // size of the icon
+        iconAnchor:   [23, 56], // point of the icon which will correspond to marker's location
+    });
+
     const map = leaflet.map('map', {
       center: [0,0],
       zoom: 0,
@@ -36,11 +42,13 @@
           attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         })
       ]
-    }).setView([51.5, -0.09], 13);
+    }).setView([40.753685, -73.999161], 12);
 
-    const updateMarker = (marker = [51.5, -0.09]) => {
-      map.setView(marker, 13);
-      leaflet.marker(marker).addTo(map);
+    const updateMarker = (marker = [40.753685, -73.999161]) => {
+      map.setView(marker, 12);
+      leaflet.marker(marker, {
+        icon: icon,
+      }).addTo(map);
     }
 
     const getIpDetails = (defaultIp) => {
@@ -66,7 +74,7 @@
         })
     }
 
-    // document.addEventListener('load', updateMarker());
+    document.addEventListener('load', updateMarker());
 
     searchBtn.addEventListener('click', e => {
       e.preventDefault();
