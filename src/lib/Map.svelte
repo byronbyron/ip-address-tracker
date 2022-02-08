@@ -8,7 +8,7 @@
     const leaflet = await import('leaflet');
 
     const apiKey = import.meta.env.VITE_API_KEY;
-    const bypassCorsUrl = 'https://cors-anywhere.herokuapp.com/';
+    const bypassCorsUrl = 'https://justcors.com/l_w7mn5wogy9/';
     const apiUrl = 'https://geo.ipify.org/api/v2/country,city';
 
     // elements to update
@@ -21,12 +21,6 @@
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
 
-    const headersOption = {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      }
-    }
-
     var icon = leaflet.icon({
         iconUrl: '/icon-location.svg',
         iconSize:     [46, 56], // size of the icon
@@ -38,8 +32,8 @@
       zoom: 0,
       zoomControl: false,
       layers: [
-        leaflet.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        leaflet.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
         })
       ]
     }).setView([51.5, -0.09], 13);
@@ -58,7 +52,13 @@
         var ipUrl = `${bypassCorsUrl}${apiUrl}?apiKey=${apiKey}&ipAddress=${defaultIp}`;
       }
 
-      fetch(ipUrl, headersOption)
+      const headers = {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      };
+
+      fetch(ipUrl, headers)
         .then(results => results.json())
         .then(data => {
           ip.innerHTML = data.ip;
