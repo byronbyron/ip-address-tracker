@@ -55,6 +55,10 @@
         margin-bottom: 1.5rem;
     }
 
+    li:first-child strong {
+        word-break: break-all;
+    }
+
     li:last-child strong {
         margin-bottom: 0;
     }

@@ -38,12 +38,22 @@
       ]
     }).setView([51.5, -0.09], 13);
 
+    const setMapView = (map, lat, lng) => {
+      map.setView([lat, lng]);
+    }
+
     const updateMarker = (marker = [51.5, -0.09]) => {
       map.setView(marker, 13);
       leaflet.marker(marker, {
         icon: icon,
       }).addTo(map);
     }
+
+    const headers = {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
 
     const getIpDetails = (defaultIp) => {
       if (defaultIp == undefined) {
@@ -52,29 +62,40 @@
         var ipUrl = `${bypassCorsUrl}${apiUrl}?apiKey=${apiKey}&ipAddress=${defaultIp}`;
       }
 
-      const headers = {
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
-      };
-
       fetch(ipUrl, headers)
         .then(results => results.json())
         .then(data => {
-          ip.innerHTML = data.ip;
-          city.innerHTML = `${data.location.city} ${data.location.country} ${data.location.postalCode}`;
-          timeZone.innerHTML = data.location.timezone;
-          isp.innerHTML = data.isp;
+          ip.textContent = data.ip;
+          city.textContent = `${data.location.city} ${data.location.country} ${data.location.postalCode}`;
+          timeZone.textContent = data.location.timezone;
+          isp.textContent = data.isp;
 
           updateMarker([data.location.lat, data.location.lng]);
         })
         .catch(error => {
           alert("Unable to get IP details");
-          console.log(error);
-        })
+        });
     }
 
-    document.addEventListener('load', updateMarker());
+    const setInitialMarker = () => {
+      const ipUrl = `${bypassCorsUrl}${apiUrl}?apiKey=${apiKey}`;
+
+      fetch(ipUrl, headers)
+        .then(results => results.json())
+        .then(data => {
+          ip.textContent = data.ip;
+          city.textContent = `${data.location.city} ${data.location.country} ${data.location.postalCode}`;
+          timeZone.textContent = data.location.timezone;
+          isp.textContent = data.isp;
+
+          updateMarker([data.location.lat, data.location.lng]);
+        })
+        .catch(error => {
+          alert("Unable to get IP details");
+        });
+    }
+
+    document.addEventListener('load', setInitialMarker());
 
     searchBtn.addEventListener('click', e => {
       e.preventDefault();
