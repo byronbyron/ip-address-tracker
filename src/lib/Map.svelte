@@ -89,9 +89,6 @@
           isp.textContent = data.isp;
 
           updateMarker([data.location.lat, data.location.lng]);
-        })
-        .catch(error => {
-          alert("Unable to get IP details");
         });
     }
 
